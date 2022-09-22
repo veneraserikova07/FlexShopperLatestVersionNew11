@@ -5,66 +5,54 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+
+import java.sql.Driver;
+import java.util.concurrent.TimeUnit;
 
 public class passwordScreenStepDefs {
     private static WebDriver driver;
+    @Given("^User wants to login to the application$")
+    public void user_wants_to_login_to_the_application() {
+        System.setProperty("webdriver.chrome.driver",
+                "/Users/veneraserikova/WorkSpace/FlexShopperFramework/src/test/java/resources/drivers/chromedriver");
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.get("https://fmweb.staging.flexint.net/?do=pp3");
+        driver.manage().window().setSize(new Dimension(1536, 920));
 
-    @Given("^User lands on Password screen$")
-    public void user_lands_on_Password_screen() {
-        WebElement password = driver.findElement(By.id("password-input"));
-        Assert.assertTrue(password.isDisplayed());
-        System.out.println("Password is displayed");
     }
 
-    @When("^User enters an valid password$")
-    public void user_enters_an_valid_password() {
-        WebElement password = driver.findElement(By.id("password-input"));
-        password.clear();
-        password.sendKeys("test123");
+    @Given("^User is in the pop3 email screen$")
+    public void user_is_in_the_pop_email_screen() {
+        driver.switchTo().frame(0);
+        driver.switchTo().frame(0);
+    }
+    @When("^User enters a valid email address$")
+    public void user_enters_a_valid_email_address() {
+        WebElement element =driver.findElement(By.id("email-input"));
+        element.clear();
+        element.sendKeys("startdrift@gmail.com");
     }
 
-    @When("^User clicks on Sign In button$")
-    public void user_clicks_on_Sign_In_button() {
+    @When("^User clicks on CONTINUE button$")
+    public void user_clicks_on_CONTINUE_button() {
         driver.findElement(By.id("formSubmitButton")).click();
     }
 
-    @Then("^User lands in the Home page as logged in user$")
-    public void user_lands_in_the_Home_page_as_logged_in_user() {
-        WebElement myAccountHeader = driver.findElement(By.className("userName"));
-
-        Assert.assertEquals("Stanislav Kuleshov", myAccountHeader.getText());
-        System.out.println("myAccountHeader.getText() = " + myAccountHeader.getText());
+    @Then("^User lands on PASSWORD screen$")
+    public void user_lands_on_PASSWORD_screen() {
+        WebElement password = driver.findElement(By.id("password-input"));
+        Assert.assertTrue(password.isDisplayed());
+        System.out.println("Password is displayed");
         driver.quit();
     }
 
-    @When("^User enters an invalid password$")
-    public void user_enters_an_invalid_password() {
-        driver.findElement(By.id("password-input")).sendKeys("test");
 
-    }
-
-    @Then("^User should sees an error message$")
-    public void user_should_sees_an_error_message() {
-        WebElement errorMessage = driver.findElement(By.xpath("//span[text()='Invalid email or password: please check your details and try again']"));
-        System.out.println(errorMessage.getText());
-        driver.quit();
-    }
-
-    @When("^User doesn't enter password$")
-    public void user_doesn_t_enter_password() {
-        driver.findElement(By.id("password-input")).sendKeys("");
-    }
-
-    @Then("^user sees an error message$")
-    public void user_sees_an_error_message() {
-        WebElement errorMessage = driver.findElement(By.xpath("//span[@label='Required']"));
-        Assert.assertEquals("Required", errorMessage.getText());
-
-        System.out.println(errorMessage.getText());
-        driver.quit();
-    }
 
 
 
