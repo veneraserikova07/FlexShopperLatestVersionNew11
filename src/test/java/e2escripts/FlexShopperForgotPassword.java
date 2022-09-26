@@ -13,8 +13,6 @@ public class FlexShopperForgotPassword {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-
-
         driver.navigate().to("https://fmweb.staging.flexint.net/?do=pp3");
         driver.quit();
     }

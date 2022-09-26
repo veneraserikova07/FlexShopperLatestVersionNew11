@@ -4,39 +4,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>flexshopper.com</groupId>
     <artifactId>FlexShopperFramework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <suiteXmlFile>src/test/TestNG.xml</suiteXmlFile>
-        <MavenSurefire.Version>3.0.0-M3</MavenSurefire.Version>
         <MavenCompiler.version>3.8.1</MavenCompiler.version>
-        <MavenProperties.version>1.0.0</MavenProperties.version>
-        <java.version>1.8</java.version>
-        <spring.version>5.0.4.RELEASE</spring.version>
         <selenium-java.version>3.141.59</selenium-java.version>
-        <jxl.version>2.6.12</jxl.version>
-        <mssql-jdbc.version>8.2.2.jre8</mssql-jdbc.version>
-        <cucumber.version>2.4.0</cucumber.version>
-        <junit.version>4.13</junit.version>
-        <testng.version>7.1.0</testng.version>
-        <log4j.version>2.17.0</log4j.version>
-        <httpclient.version>4.5.10</httpclient.version>
-        <poi.version>4.1.0</poi.version>
-        <extentreports.version>5.0.1</extentreports.version>
-        <cucumber-reporting.version>5.3.1</cucumber-reporting.version>
-        <!--    <cucumber-extentsreport.version>3.1.1</cucumber-extentsreport.version>-->
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-io.version>2.6</commons-io.version>
-        <opencsv.version>5.1</opencsv.version>
-        <azure-security-keyvault-secrets.version>4.0.0</azure-security-keyvault-secrets.version>
-        <azure-identity.version>1.0.0</azure-identity.version>
-        <Environment>Test</Environment><!--Deprecated property. Do not use. Soon to be deleted-->
+        <cucumber.version>LATEST</cucumber.version>
+        <cucumber-reporting.version>LATEST</cucumber-reporting.version>
+        <gherkin.version>LATEST</gherkin.version>
+        <extentreports.version>LATEST</extentreports.version>
+        <bonigarcia.version>LATEST</bonigarcia.version>
+        <commons-lang3.version>LATEST</commons-lang3.version>
+        <commons-io.version>LATEST</commons-io.version>
+        <junit.version>LATEST</junit.version>
+        <log4j.version>LATEST</log4j.version>
         <BrowserType>Chrome</BrowserType>
         <environment>test</environment>
-        <flavor>tsys</flavor>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -49,18 +35,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>4.3.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
-        <dependency>
-            <groupId>net.sourceforge.jexcelapi</groupId>
-            <artifactId>jxl</artifactId>
-            <version>${jxl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>${mssql-jdbc.version}</version>
+            <version>${bonigarcia.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
@@ -68,6 +43,7 @@
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit</artifactId>
@@ -80,57 +56,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-testng</artifactId>
-            <version>${cucumber.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <!-- <scope>compile</scope> -->
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>${httpclient.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>${poi.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
-        <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>${extentreports.version}</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.vimalselvam/cucumber-extentsreport -->
-        <!--    <dependency>-->
-        <!--      <groupId>com.vimalselvam</groupId>-->
-        <!--      <artifactId>cucumber-extentsreport</artifactId>-->
-        <!--      <version>${cucumber-extentsreport.version}</version>-->
-        <!--    </dependency>-->
+        <!-- https://mvnrepository.com/artifact/net.masterthought/cucumber-reporting -->
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-reporting</artifactId>
@@ -148,89 +74,17 @@
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>${opencsv.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-security-keyvault-secrets</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.azure</groupId>
-            <artifactId>azure-identity</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-            <version>3.3.9.RELEASE</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/info.cukes/gherkin -->
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>gherkin</artifactId>
-            <version>2.12.2</version>
+            <version>${gherkin.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.vimalselvam</groupId>
-            <artifactId>cucumber-extentsreport</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
-        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-picocontainer</artifactId>
-            <version>7.7.0</version>
-            <scope>test</scope>
-        </dependency>
-
-
-
     </dependencies>
 
     <build>
-        <filters>
-            <filter>src/test/resources.filters/${flavor}/${environment}.properties</filter>
-        </filters>
-        <testResources>
-            <testResource>
-                <directory>src/test/resources</directory>
-                <filtering>true</filtering>
-            </testResource>
-        </testResources>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>${MavenProperties.version}</version>
-                <executions>
-                    <execution>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>write-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <outputFile>target/test-classes/Config.properties</outputFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${MavenSurefire.Version}</version>
-                <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
-                    </suiteXmlFiles>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -244,4 +98,3 @@
     </build>
 
 </project>
-

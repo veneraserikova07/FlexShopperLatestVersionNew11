@@ -11,9 +11,8 @@ Feature: As user I should be able to login
     And User clicks on CONTINUE button
     Then User lands on PASSWORD screen
 
-
     Scenario: New Customer - User lands in Profile Info screen
-      When User enters a valid "abc@gmail.com" non-existing address
+      When User enters a valid "ace@flexshopper.com" non-existing address
       And User clicks on CONTINUE button
       Then User lands on Profile Info screen
 
@@ -21,6 +20,7 @@ Feature: As user I should be able to login
    Scenario Outline: Login fail - with an invalid email
           When User enters an invalid "<email>" address
           And User clicks on CONTINUE button
+          And User clicks Welcome to
           Then User sees "<errorMsg>" message
 
           Examples:

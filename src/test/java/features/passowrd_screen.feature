@@ -1,4 +1,4 @@
-@wip @myLogin
+@wip
 Feature: As an existing customer I should be able to land to home Page
 
 

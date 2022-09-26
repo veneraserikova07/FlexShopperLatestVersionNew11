@@ -1,19 +1,32 @@
 package stepdefinitions;
 
 
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+
+
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import managers.PageObjectManager;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import pageObjects.HomePage;
-import pageObjects.PasswordPage;
+import pageObjects.PasswordPge;
 
 public class passwordScreenStepDefs {
     WebDriver driver;
-    PasswordPage passwordPage;
+    PasswordPge passwordPage;
     HomePage homePage;
     PageObjectManager pageObjectManager;
+
+
+
+    @Given("User landed in Password screen")
+    public void user_landed_in_password_screen() {
+        passwordPage=pageObjectManager.getPasswordPage();
+        // passwordPage=testContext.getPageObjectManager().getPasswordPage();
+        Assert.assertTrue(passwordPage.passwordField.isDisplayed());
+    }
+
 
     @When("^User enters an valid \"([^\"]*)\"$")
     public void user_enters_an_valid(String password) {
