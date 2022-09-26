@@ -4,15 +4,12 @@ Feature: As an existing customer I should be able to land to home Page
 
 
   Background:
-    Given User wants to login to the application
-    And User is in the pop3 email screen
-    When User enters a valid "startdrift@gmail.com" existing address
-    And User clicks on CONTINUE button
-    Then User lands on PASSWORD screen
+    Given User landed in Password screen
 
-    Scenario: Existing Customer lands in Home Page as logged in user
-      When User enters an valid "test123"
-      And User clicks on Sign In button
+
+      Scenario: Existing Customer lands in Home Page as logged in user
+      When User enters an valid "test123" password
+       And User clicks on Sign In button
       Then User lands in the Home page as logged in user "Stanislav Kuleshov"
 
 
