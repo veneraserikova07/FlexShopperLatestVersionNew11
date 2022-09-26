@@ -2,13 +2,15 @@ package managers;
 
 import org.openqa.selenium.WebDriver;
 import pageObjects.LoginPage;
-import pageObjects.PasswordPge;
+import pageObjects.PasswordPage;
+import pageObjects.ProfileInfoPage;
+import pageObjects.HomePage;
 
 public class PageObjectManager {
 
     private WebDriver driver;
     private LoginPage loginPage;
-    private PasswordPge passwordPage;
+    private PasswordPage passwordPage;
     private ProfileInfoPage profileInfoPage;
 
     private HomePage homePage;
@@ -21,8 +23,8 @@ public class PageObjectManager {
         return (loginPage==null) ? loginPage =new LoginPage(driver):loginPage;
     }
 
-    public PasswordPge getPasswordPage() {
-        return (passwordPage==null) ? passwordPage =new PasswordPge(driver) : passwordPage;
+    public PasswordPage getPasswordPage() {
+        return (passwordPage==null) ? passwordPage =new PasswordPage(driver) : passwordPage;
     }
     public ProfileInfoPage getProfileInfoPage() {
         return (profileInfoPage==null) ? profileInfoPage =new ProfileInfoPage(driver) : profileInfoPage;
