@@ -19,12 +19,12 @@ import pageObjects.ProfileInfoPage;
 
 public class loginStepDefs {
 
-    //WebDriver driver;
+   // WebDriver driver;
 
     TestContext testContext;
    //WebDriverManager webDriverManager;
-   // PageObjectManager pageObjectManager;
-    //ConfigFileReader configFileReader;
+   //PageObjectManager pageObjectManager;
+   // ConfigFileReader configFileReader;
     LoginPage loginPage;
     ProfileInfoPage profileInfoPage;
 
@@ -33,19 +33,19 @@ public class loginStepDefs {
     @Given("^User wants to login to the application$")
     public void user_wants_to_login_to_the_application(TestContext context) {
         testContext=context;
-        // webDriverManager=new WebDriverManager();
+        //webDriverManager=new WebDriverManager();
          //driver = webDriverManager.getDriver();
-        // pageObjectManager =new PageObjectManager(driver);
-         //loginPage=pageObjectManager.getLoginPage();
-        // loginPage.getEmailScreen();
+         //pageObjectManager =new PageObjectManager(driver);
+        // loginPage=pageObjectManager.getLoginPage();
+        //loginPage.getEmailScreen();
         loginPage=testContext.getPageObjectManager().getLoginPage();
 
     }
 
     @Given("^User is in the pop3 email screen$")
     public void user_is_in_the_pop_email_screen() {
-      // driver.switchTo().frame(0);
-     //  driver.switchTo().frame(0);
+       //driver.switchTo().frame(0);
+       //driver.switchTo().frame(0);
         testContext.getWebDriverManager().getDriver().switchTo().frame(0);
         testContext.getWebDriverManager().getDriver().switchTo().frame(0);
 
@@ -61,14 +61,14 @@ public class loginStepDefs {
 
     @When("^User clicks on CONTINUE button$")
     public void user_clicks_on_CONTINUE_button() {
-      //  driver.findElement(By.id("formSubmitButton")).click();
+        //driver.findElement(By.id("formSubmitButton")).click();
         testContext.getWebDriverManager().getDriver().findElement(By.id("formSubmitButton")).click();
 
     }
 
     @Then("^User lands on PASSWORD screen$")
     public void user_lands_on_PASSWORD_screen() {
-       // passwordPage=pageObjectManager.getPasswordPage();
+        //passwordPage=pageObjectManager.getPasswordPage();
         passwordPage=testContext.getPageObjectManager().getPasswordPage();
         Assert.assertTrue(passwordPage.passwordField.isDisplayed());
 
