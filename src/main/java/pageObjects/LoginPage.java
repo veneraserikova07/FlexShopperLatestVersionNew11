@@ -24,7 +24,7 @@ public class LoginPage {
 
     @FindBy(how= How.ID, using = "email-input")
     private WebElement emailField;
-    @FindBy(how = How.XPATH, using = "/h3[text()='Welcome to']")
+    @FindBy(how = How.XPATH, using = "//h3[text()='Welcome to']")
     public WebElement welcomeText;
 
     @FindBy(how = How.XPATH, using = "//span[@label='Invalid email address']")
