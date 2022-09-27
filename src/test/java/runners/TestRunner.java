@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/features",
         glue = "stepdefinitions",
-        tags = "@login"
+        tags = "@wip"
 
 )
 

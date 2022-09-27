@@ -1,25 +1,44 @@
 package stepdefinitions;
 
+import cucumber.TestContext;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import managers.PageObjectManager;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import pageObjects.HomePage;
+import pageObjects.LoginPage;
 import pageObjects.PasswordPage;
 
 public class passwordScreenStepDefs {
-    WebDriver driver;
-    PasswordPage passwordPage;
-    HomePage homePage;
-    PageObjectManager pageObjectManager;
 
-    @When("^User enters an valid \"([^\"]*)\"$")
-    public void user_enters_an_valid(String password) {
-        pageObjectManager =new PageObjectManager(driver);
-        passwordPage=pageObjectManager.getPasswordPage();
-        passwordPage.enter_password(password);
+
+    TestContext testContext;
+    PasswordPage passwordPage;
+    LoginPage loginPage;
+    HomePage homePage;
+    public  passwordScreenStepDefs(TestContext context) {
+
+
+        testContext=context;
+        passwordPage=testContext.getPageObjectManager().getPasswordPage();
     }
+
+    @Given("User landed in Password screen")
+    public void user_landed_in_password_screen() {
+
+        System.out.println(passwordPage.passwordField.isDisplayed());
+
+
+    }
+    @When("User enters an valid {string} password")
+    public void user_enters_an_valid_password(String password) {
+
+        passwordPage.passwordField.sendKeys(password);
+
+    }
+
 
     @When("^User clicks on Sign In button$")
     public void user_clicks_on_Sign_In_button() {
@@ -28,7 +47,7 @@ public class passwordScreenStepDefs {
 
     @Then("^User lands in the Home page as logged in user \"([^\"]*)\"$")
     public void user_lands_in_the_Home_page_as_logged_in_user(String user) {
-        homePage=pageObjectManager.getHomePage();
+        homePage=testContext.getPageObjectManager().getHomePage();
         Assert.assertEquals(user, homePage.accHeader.getText());
         System.out.println(homePage.accHeader.getText());
     }
