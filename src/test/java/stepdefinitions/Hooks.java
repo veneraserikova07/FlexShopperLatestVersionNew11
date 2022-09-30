@@ -21,9 +21,8 @@ public class Hooks {
     }
 
     @Before
-    public void beforeScenario() {
-       // Reporter.assignAuthor("FlexShopperFramework - Venera");
-        System.out.println("This will run before the Scenario");
+    public void beforeScenario(/*Scenario scenario*/) {
+        Reporter.assignAuthor("Allure");
     }
 
     @After(order = 1)

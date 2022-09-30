@@ -1,7 +1,12 @@
 package runners;
+import com.cucumber.listener.Reporter;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import managers.FileReaderManager;
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 
 @RunWith(Cucumber.class)
@@ -10,10 +15,10 @@ import org.junit.runner.RunWith;
         glue = "stepdefinitions",
         monochrome = true,
 
-      plugin = {"pretty","json:target/cucumber-reports/Cucumber.json","junit:target/cucumber-reports/Cucumber.xml",
-               "html:target/cucumber.html", "rerun:target/rerun.txt"},
+     /* plugin = {"pretty","json:target/cucumber-reports/Cucumber.json","junit:target/cucumber-reports/Cucumber.xml",
+               "html:target/cucumber.html", "rerun:target/rerun.txt"},*/
 
-      // plugin = { "html:target/cucumber.html", "com.cucumber.listener.ExtentCucumberFormatter" },
+       plugin = { "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" },
 
 
 
@@ -24,7 +29,7 @@ import org.junit.runner.RunWith;
 )
 
 public class TestRunner {
-   /* @AfterClass
+   @AfterClass
     public static void writeExtentReport() {
         Reporter.loadXMLConfig(new File(FileReaderManager.getInstance().getConfigReader().getReportConfigPath()));
         Reporter.setSystemInfo("User Name", System.getProperty("user.name"));
@@ -33,5 +38,5 @@ public class TestRunner {
         Reporter.setSystemInfo("Selenium", "3.141.59");
         Reporter.setSystemInfo("Maven", "3.8.1");
         Reporter.setSystemInfo("Java Version", "1.8.0_341");
-    }*/
+    }
 }
