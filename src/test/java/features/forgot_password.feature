@@ -4,9 +4,9 @@ Feature: As user I should be able to change the password
     Given User forgot the password
     And User is in the PASSWORD screen
     When User clicks on forgot password link
-    Then User lands on Forgot Password screen
+    And  User lands on Forgot Password screen
 
-  Scenario: User with email and phone number
+  Scenario: User with full information
     Given the user has an account with email and phone
     When user lands in Forgot Password screen
     Then User can see the email

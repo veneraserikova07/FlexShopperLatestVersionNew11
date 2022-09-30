@@ -11,10 +11,10 @@
         <protocol>https</protocol>
 
         <!-- title of the document -->
-        <documentTitle>FlexShopperFramework</documentTitle>
+        <documentTitle>FlexShopperFramework - Cucumber Framework</documentTitle>
 
         <!-- report name - displayed at top-nav -->
-        <reportName>FlexShopperFramework - Cucumber Report</reportName>
+        <reportName>ToolsQA - Cucumber Report</reportName>
 
         <!-- global date format override -->  <!-- defaults to yyyy-MM-dd -->
         <dateFormat>yyyy-MM-dd</dateFormat>

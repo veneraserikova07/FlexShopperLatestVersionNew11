@@ -1,10 +1,11 @@
 package e2escripts;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.junit.Assert;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -53,8 +54,24 @@ public class FlexShopperPasswordScreenWithInValidPassword {
          * THEN the user sees an error message
          */
         // TODO: Capture the error message. It's returning empty now
-        WebElement errorMessage = driver.findElement(By.xpath("//span[text()='Invalid email or password: please check your details and try again']"));
-        System.out.println(errorMessage.getText());
+
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 2);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            System.out.println(alert.getText());
+            String alertText=alert.getText();
+            System.out.println("alertText = " + alertText);
+            alert.accept();
+            Assert.assertEquals("Invalid email or password: please check your details and try again", alert.getText());
+        } catch (Exception e) {
+            System.out.println("No such Alert exception");
+        }
+        
+
+        //WebElement errorMessage = driver.findElement(By.xpath("//span[text()='Invalid email or password: please check your details and try again']"));
+       // System.out.println(errorMessage.getText());
+        System.out.println("NO text there");
         driver.quit();
     }
 }

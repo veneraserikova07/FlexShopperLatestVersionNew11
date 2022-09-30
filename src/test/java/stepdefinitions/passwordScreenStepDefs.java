@@ -1,12 +1,15 @@
 package stepdefinitions;
 
 import cucumber.TestContext;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import managers.PageObjectManager;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.HomePage;
 import pageObjects.LoginPage;
 import pageObjects.PasswordPage;
@@ -18,6 +21,7 @@ public class passwordScreenStepDefs {
     PasswordPage passwordPage;
     LoginPage loginPage;
     HomePage homePage;
+
     public  passwordScreenStepDefs(TestContext context) {
 
 
@@ -25,13 +29,34 @@ public class passwordScreenStepDefs {
         passwordPage=testContext.getPageObjectManager().getPasswordPage();
     }
 
-    @Given("User landed in Password screen")
-    public void user_landed_in_password_screen() {
-
-        System.out.println(passwordPage.passwordField.isDisplayed());
 
 
+    @Given("User login to the application")
+    public void userLoginToTheApplication() {
+        loginPage=testContext.getPageObjectManager().getLoginPage();
+        loginPage.getEmailScreen();
     }
+    @And("user in the pop screen")
+    public void userInThePopScreen() {
+        testContext.getWebDriverManager().getDriver().switchTo().frame(0);
+        testContext.getWebDriverManager().getDriver().switchTo().frame(0);
+    }
+
+    @And("User enters a {string} existing address")
+    public void userEntersAExistingAddress(String email) {
+        loginPage.enter_email(email);
+    }
+
+    @And("User clicks Continue button")
+    public void userClicksContinueButton() {
+        testContext.getWebDriverManager().getDriver().findElement(By.id("formSubmitButton")).click();
+    }
+
+    @And("User lands on Password screen")
+    public void userLandsOnPasswordScreen() {
+        System.out.println(passwordPage.passwordField.isDisplayed());
+    }
+
     @When("User enters an valid {string} password")
     public void user_enters_an_valid_password(String password) {
 
@@ -59,8 +84,21 @@ public class passwordScreenStepDefs {
 
     @Then("^User should see \"([^\"]*)\" message$")
     public void user_should_see_message(String errorMsg) {
-        Assert.assertEquals(errorMsg,passwordPage.errorMsg.getText());
-        System.out.println(passwordPage.errorMsg.getText());
+        /**
+         * Capturing alert message
+         */
+
+       try {
+            WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(), 2);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = testContext.getWebDriverManager().getDriver().switchTo().alert();
+            System.out.println(alert.getText());
+            alert.accept();
+            Assert.assertEquals(errorMsg, alert.getText());
+        } catch (Exception e) {
+            System.out.println("No such Alert exception");
+        }
+
     }
 
     @When("^User enters an invalid \"([^\"]*)\" empty field$")
@@ -70,7 +108,12 @@ public class passwordScreenStepDefs {
 
     @Then("^User should be able  see \"([^\"]*)\" message$")
     public void user_should_be_able_see_message(String errorMsg) {
-        Assert.assertEquals(errorMsg, passwordPage.errMsgReq.getText());
-        System.out.println(passwordPage.errMsgReq.getText());
+
+
+
+       Assert.assertEquals("Required", passwordPage.errMsgReq.getText());
     }
+
+
+
 }
