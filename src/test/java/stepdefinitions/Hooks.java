@@ -21,7 +21,7 @@ public class Hooks {
     }
 
     @Before
-    public void beforeScenario(/*Scenario scenario*/) {
+    public void beforeScenario(Scenario scenario) {
         Reporter.assignAuthor("Allure");
     }
 
