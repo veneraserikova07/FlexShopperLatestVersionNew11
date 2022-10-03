@@ -29,6 +29,8 @@ public class LoginPage {
 
     @FindBy(how = How.XPATH, using = "//span[@label='Invalid email address']")
     public WebElement errorMsg;
+     @FindBy(how = How.ID, using = "formSubmitButton")
+     public WebElement continueBtn;
 
     public void enter_email(String email) {
         emailField.clear();

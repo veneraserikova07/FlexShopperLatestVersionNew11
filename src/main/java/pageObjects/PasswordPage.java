@@ -30,6 +30,10 @@ public class PasswordPage {
     public WebElement signInBtn;
 
 
+    @FindBy(how = How.XPATH, using = "//a[text()='Forgot Password?']")
+    public WebElement ForgotPassword;
+
+
     public  void enter_password(String password) {
         passwordField.sendKeys(password);
     }
