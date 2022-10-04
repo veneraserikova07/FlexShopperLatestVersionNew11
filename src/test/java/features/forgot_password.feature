@@ -29,10 +29,61 @@ Feature: As user I should be able to change the password
    #verify email forgot password
   Scenario: User should be able to get password to email
   And user clicks sent Email to radio button
-  And user clicks continue button
+  And user clicks Continue button
   And code is sent using check email to insert code text box
   Then user should see we sent you code message
   And user should get code
+
+
+
+    #verify No code received button functionality
+  Scenario:  user
+    And user clicks sent Email to radio button
+    And user clicks Continue button
+  And user clicks No Code received? button
+  Then user should see reset password screen
+
+
+
+
+    #verify login with old password after password was resetted
+  Scenario:
+
+    And user clicks sent Email to radio button
+    And user clicks Continue button
+    And code is sent using check email to insert code text box
+    Then user should see we sent you code message
+    And user should get code
+  And user clicks submit button
+  And user enter reset "test123" password
+  And user  clicks save changes
+    And user lands on app
+    And user on pop up screen
+    And user enter existing email "nann40547@gmail.com" address
+    And user clicks continue button
+    And user lands on password screen
+    And user enters new "test123"password
+  And user should see dashboard page
+
+
+
+  Scenario: Old password/ invalid scenario
+    And user clicks sent Email to radio button
+    And user clicks Continue button
+    And code is sent using check email to insert code text box
+    Then user should see we sent you code message
+    And user should get code
+    And user clicks submit button
+    And user enter reset password
+    And user  clicks save changes
+    And user lands on app
+    And user on pop up screen
+    And user enter existing email "nann40547@gmail.com" address
+    And user clicks continue button
+    And user lands on password screen
+    And user enters old  password
+    And user should see error message
+
 
 
 
@@ -45,10 +96,12 @@ Feature: As user I should be able to change the password
 
 
   #assert code screen
-  #verify No code received button functionality
-  #verify email forgot password
+
+
+
+
   #verify sms forgot password (may be available through google voice api)
-  #verify login with old password after password was reseted
+
 
 
 

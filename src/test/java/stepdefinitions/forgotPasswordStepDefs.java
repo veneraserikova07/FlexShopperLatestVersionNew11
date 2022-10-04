@@ -1,17 +1,20 @@
 package stepdefinitions;
 
 import cucumber.TestContext;
+import helpers.CheckMail;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.ForgotPasswordPage;
 import pageObjects.LoginPage;
 import pageObjects.PasswordPage;
+
 
 public class forgotPasswordStepDefs {
 
@@ -28,6 +31,7 @@ public class forgotPasswordStepDefs {
         loginPage = testContext.getPageObjectManager().getLoginPage();
         passwordPage = testContext.getPageObjectManager().getPasswordPage();
         forgotPasswordPage = testContext.getPageObjectManager().getForgotPasswordPage();
+
 
     }
     @Given("user lands ann app")
@@ -96,18 +100,42 @@ public class forgotPasswordStepDefs {
     @And("user clicks sent Email to radio button")
     public void userClicksSentEmailToRadioButton() {
 
+        /*WebDriverWait wait=new WebDriverWait(testContext.getWebDriverManager().getDriver(), 15);
+        wait.until(ExpectedConditions.elementToBeClickable(forgotPasswordPage.emailRadioBtn));
+        forgotPasswordPage.emailRadioBtn.click();*/
+        try {
+            WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(),30);
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='sc-dVhcbM cahqFL'])[2]")));
+        } catch (TimeoutException toe) {
+            System.out.println("WebElement wasn't found");
+        }
 
 
-        JavascriptExecutor jse =(JavascriptExecutor)testContext.getWebDriverManager().getDriver();
-        jse.executeAsyncScript("arguments[0].click();", forgotPasswordPage.emailRadioBtn);
-        forgotPasswordPage.emailRadioBtn.click();
+
+
+       /* JavascriptExecutor jse =(JavascriptExecutor)testContext.getWebDriverManager().getDriver();
+        jse.executeScript("arguments[0].click();", forgotPasswordPage.emailRadioBtn);
+        forgotPasswordPage.emailRadioBtn.click();*/
 
 
 
     }
 
+    @And("user clicks Continue button")
+    public void userClicksContinueButton() {
+        forgotPasswordPage.continueBtn.click();
+    }
     @And("code is sent using check email to insert code text box")
     public void codeIsSentUsingCheckEmailToInsertCodeTextBox() {
+        CheckMail checkMail = new CheckMail();
+        String passcode= CheckMail.check("imap.gmail.com", "imap", "nann40547@gmail.com", "fyicwklawfmmekap");
+        System.out.println("PassCode is "+passcode);
+        WebElement securityBox=testContext.getWebDriverManager().getDriver().findElement(By.id("code-input"));
+        WebDriverWait wait =new WebDriverWait(testContext.getWebDriverManager().getDriver(), 50);
+        wait.until(ExpectedConditions.visibilityOf(securityBox));
+        securityBox.sendKeys(passcode);
+
+
 
     }
 
@@ -118,4 +146,10 @@ public class forgotPasswordStepDefs {
     @And("user should get code")
     public void userShouldGetCode() {
     }
+
+   // nann40547@gmail.com", "elwtswjneifjlzor
+
+    //fyicwklawfmmekap
+
+
 }
