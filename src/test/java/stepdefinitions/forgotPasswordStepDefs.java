@@ -147,9 +147,6 @@ public class forgotPasswordStepDefs {
     public void userShouldGetCode() {
     }
 
-   // nann40547@gmail.com", "elwtswjneifjlzor
-
-    //fyicwklawfmmekap
 
 
 }
