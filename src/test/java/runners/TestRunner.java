@@ -20,15 +20,11 @@ import java.io.File;
 
     //   plugin = { "com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" },
 
-
-
-
-
         tags = "@wip"
 
 )
 
-public class TestRunner {
+public class     TestRunner {
   /* @AfterClass
     public static void writeExtentReport() {
         Reporter.loadXMLConfig(new File(FileReaderManager.getInstance().getConfigReader().getReportConfigPath()));

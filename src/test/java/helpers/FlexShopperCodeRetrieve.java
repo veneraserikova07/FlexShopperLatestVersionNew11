@@ -14,17 +14,17 @@ import javax.mail.Store;
 
 
 
-public class CheckMail
+public class FlexShopperCodeRetrieve
 
 {
 
 
     public static String check(String host,String storeType,String user,String password)
     {
-        //String url=null;
-       // String userid =null;
+        String url=null;
+        String userid =null;
         String pass=null;
-        String passcode=null;
+        String passcode="";
 
         try {
 
@@ -59,8 +59,8 @@ public class CheckMail
                 BodyPart part = multipart.getBodyPart(0);
                 String responseMessage = part.getContent().toString();
 
-              //if(message.getSubject().contains("Your verification code"))
-                if(message.getAllRecipients().equals("help@flexshopper.com"))
+              if(message.getSubject().contains("Your verification code"))
+               // if(message.getAllRecipients().equals("shelp@flexshopper.com"))
 
                 {
 
@@ -94,9 +94,15 @@ public class CheckMail
             e.printStackTrace();
         }
 
+
         return passcode;
+    }
+
+    public static void main(String[] args) {
 
     }
+
+
 
 }
 

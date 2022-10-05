@@ -1,7 +1,8 @@
 package stepdefinitions;
 
 import cucumber.TestContext;
-import helpers.CheckMail;
+import helpers.FlexShopperCodeRetrieve;
+import helpers.Mail;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -23,6 +24,7 @@ public class forgotPasswordStepDefs {
     PasswordPage passwordPage;
     LoginPage loginPage;
     ForgotPasswordPage forgotPasswordPage;
+    FlexShopperCodeRetrieve checkMail;
 
     public forgotPasswordStepDefs(TestContext context) {
 
@@ -127,15 +129,15 @@ public class forgotPasswordStepDefs {
     }
     @And("code is sent using check email to insert code text box")
     public void codeIsSentUsingCheckEmailToInsertCodeTextBox() {
-        CheckMail checkMail = new CheckMail();
-        String passcode= CheckMail.check("imap.gmail.com", "imap", "nann40547@gmail.com", "fyicwklawfmmekap");
-        System.out.println("PassCode is "+passcode);
+       // checkMail= new CheckMail();
+        Mail mail =new Mail();
+      String passode1=mail.downloadEmails("imap", "imap.gmail.com", "993", "nann40547@gmail.com", "fplkkybdavflgxxy");
+        //String passcode=checkMail.check("imap.gmail.com", "imap", "nann40547@gmail.com", "fyicwklawfmmekap");
+        System.out.println("Passcode is: "+passode1);
         WebElement securityBox=testContext.getWebDriverManager().getDriver().findElement(By.id("code-input"));
         WebDriverWait wait =new WebDriverWait(testContext.getWebDriverManager().getDriver(), 50);
         wait.until(ExpectedConditions.visibilityOf(securityBox));
-        securityBox.sendKeys(passcode);
-
-
+        securityBox.sendKeys(passode1);
 
     }
 
@@ -147,6 +149,59 @@ public class forgotPasswordStepDefs {
     public void userShouldGetCode() {
     }
 
+
+    @Then("user should see {string} text")
+    public void userShouldSeeText(String text) {
+
+    }
+
+    @And("user should see {string} text and {string} email")
+    public void userShouldSeeTextAndEmail(String text, String emailText) {
+    }
+
+    @And("user clicks No Code received? button")
+    public void userClicksNoCodeReceivedButton() {
+    }
+
+    @And("user should see reset password screen")
+    public void userShouldSeeResetPasswordScreen() {
+    }
+
+    @And("user clicks submit button")
+    public void userClicksSubmitButton() {
+    }
+
+    @And("user enter reset {string} password")
+    public void userEnterResetPassword(String arg0) {
+    }
+
+    @And("user  clicks save changes")
+    public void userClicksSaveChanges() {
+    }
+
+    @And("user lands on app")
+    public void userLandsOnApp() {
+    }
+
+    @And("user enters new {string}password")
+    public void userEntersNewPassword(String arg0) {
+    }
+
+    @And("user should see dashboard page")
+    public void userShouldSeeDashboardPage() {
+    }
+
+    @And("user enter reset password")
+    public void userEnterResetPassword() {
+    }
+
+    @And("user enters old  password")
+    public void userEntersOldPassword() {
+    }
+
+    @And("user should see error message")
+    public void userShouldSeeErrorMessage() {
+    }
 
 
 }
