@@ -39,7 +39,6 @@ public class FlexShopperCodeRetrieve {
         driver.findElement(By.xpath("//span[text()='Send email to:']")).click();
         driver.findElement(By.xpath("//span[text()='Continue']")).click();
 
-        //String passode1=check("imap.gmail.com", "imap", "writetotestall@gmail.com", "wguygteyuwtaicef");
         String passcode=downloadEmails("imap", "imap.gmail.com", "993", "nann40547@gmail.com", "fplkkybdavflgxxy");
         System.out.println("Passcode is: "+passcode);
 
