@@ -141,7 +141,7 @@ public class FlexShopperCodeRetrieve {
     }
 
     /**
-     * Returns a list of addresses in String format separated by comma
+     * Returns a list of addresses in String format separated by comma, comma
      *
      * @param address an array of Address objects
      * @return a string represents a list of addresses
