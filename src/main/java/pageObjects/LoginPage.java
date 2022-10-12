@@ -12,16 +12,11 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage {
     WebDriver driver;
 
-
-
     public LoginPage(WebDriver driver) {
         this.driver=driver;
         PageFactory.initElements(driver,this);
 
     }
-
-
-
     @FindBy(how= How.ID, using = "email-input")
     private WebElement emailField;
     @FindBy(how = How.XPATH, using = "//h3[text()='Welcome to']")
@@ -38,7 +33,9 @@ public class LoginPage {
     }
     public void getEmailScreen() {
         driver.get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
+        // add delete cookies
 
     }
+
 
 }

@@ -15,7 +15,6 @@ public class ProfileInfoPage {
         PageFactory.initElements(driver, this);
 
     }
-
     @FindBy(how = How.XPATH, using = "//h2[text()='Profile Info']")
     public WebElement profilePage;
 

@@ -10,8 +10,9 @@ public class PageObjectManager {
     private PasswordPage passwordPage;
     private ProfileInfoPage profileInfoPage;
     private ForgotPasswordPage forgotPasswordPage;
-
     private HomePage homePage;
+    private CodeScreenPage codeScreenPage;
+    private ResetPasswordPage changePasswordScreen;
 
     public PageObjectManager(WebDriver driver) {
         this.driver=driver;
@@ -35,6 +36,12 @@ public class PageObjectManager {
 
     public ForgotPasswordPage getForgotPasswordPage() {return (forgotPasswordPage==null) ? forgotPasswordPage =
             new ForgotPasswordPage(driver) : forgotPasswordPage;
+    }
+    public CodeScreenPage getCodeScreenPage (){return (codeScreenPage==null) ? codeScreenPage=
+            new CodeScreenPage(driver) : codeScreenPage;
+    }
+    public ResetPasswordPage getChangePasswordScreen (){return (changePasswordScreen==null) ? changePasswordScreen=
+            new ResetPasswordPage(driver) : changePasswordScreen;
     }
 
 }

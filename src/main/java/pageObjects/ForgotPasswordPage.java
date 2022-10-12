@@ -19,7 +19,6 @@ public class ForgotPasswordPage {
 
     }
 
-
     @FindBy(how = How.XPATH, using = "//h3[text()='How would you like to reset your password? " +
                                       "You can verify by email or request a text to be sent " +
                                        "to the mobile number linked to your account.']")
@@ -34,12 +33,11 @@ public class ForgotPasswordPage {
     public WebElement txtMsg;
     @FindBy(how = How.XPATH, using = "//span[text()='Continue']")
     public WebElement continueBtn;
-
     @FindBy(how = How.XPATH, using = "//a[text()='Return to Password Sign In']")
     public WebElement returnToPwd;
-     @FindBy(how = How.XPATH, using = "(//input[@class='sc-dVhcbM cahqFL'])[1]")
+     @FindBy(how = How.XPATH, using = "(//div[@class='sc-fMiknA erPZuz'])[1]")
     public WebElement emailRadioBtn;
-    @FindBy(how = How.XPATH, using = "(//input[@class='sc-dVhcbM cahqFL'])[2]")
+    @FindBy(how = How.XPATH, using = "(//div[@class='sc-fMiknA erPZuz'])[2]")
     public WebElement textMsgRadioBtn;
 
 

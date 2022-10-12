@@ -1,29 +1,18 @@
 package helpers;
 
+import javax.mail.*;
 import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.mail.BodyPart;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Store;
 
-
-
-public class FlexShopperCodeRetrieve
+public class CheckMail
 
 {
-
-
-    public static String check(String host,String storeType,String user,String password)
+    public static String check(String host, String storeType, String user, String password)
     {
-        String url=null;
-        String userid =null;
-        String pass=null;
+        String url="";
+        String userid ="";
+        String pass="";
         String passcode="";
 
         try {
@@ -52,35 +41,40 @@ public class FlexShopperCodeRetrieve
             Message[] messages = emailFolder.getMessages();
             //System.out.println("messages.length---" + messages.length);
             int n=messages.length;
-            for (int i=0; i<n; i++) {
+            for (int i = 0; i<n; i++) {
                 Message message = messages[i];
                 //creating the object of Multipart class
                 Multipart multipart = (Multipart) message.getContent();
                 BodyPart part = multipart.getBodyPart(0);
                 String responseMessage = part.getContent().toString();
-
-              if(message.getSubject().contains("Your verification code"))
-               // if(message.getAllRecipients().equals("shelp@flexshopper.com"))
-
+                //System.out.println("================"+responseMessage);
+               if((message.getMessageNumber()==n)&&message.getSubject().contains("Your verification code"));
+                //if(message.getSubject().contains("Your verification code"))
                 {
 
                     /*Get password from email*/
-                    Pattern p1 = Pattern.compile("code:(\\s*.+)");
+
+
+                    //Pattern p1 = Pattern.compile("code:=(*.*)");
+
+
+                    //Pattern p1 = Pattern.compile("following code:  =(\\n.+)");
+                   // Pattern p1 = Pattern.compile(".*?code\\: (.*?)\\r.*?", Pattern.DOTALL);
+                    Pattern p1 = Pattern.compile("code:         [^a-zA-Z0-9](\\s*.*)");
                     Matcher m1 = p1.matcher(responseMessage);
 
                     if (m1.find())
                     {
                         pass = m1.group(1);
                         //To remove white spaces from String pass
-                        passcode= pass.replaceAll("\\s+", "");
-                        System.out.println("Code := "+ passcode);
+                        //passcode= pass.replaceAll("\\s+", "");
+                        //System.out.println("Code :="+ passcode);
+                        passcode= pass.replaceAll("[^a-zA-Z0-9]", "");
+
+                        System.out.println("Code :="+ passcode);
 
                     }
-
-
                 }
-
-
             }
             //close the store and folder objects
             emailFolder.close(false);
@@ -94,17 +88,17 @@ public class FlexShopperCodeRetrieve
             e.printStackTrace();
         }
 
-
         return passcode;
+
     }
-
-    public static void main(String[] args) {
-//
-    }
-
-
 
 }
+
+
+
+
+
+
 
 
 
