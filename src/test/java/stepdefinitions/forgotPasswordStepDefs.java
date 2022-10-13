@@ -137,6 +137,7 @@ public class forgotPasswordStepDefs {
         Thread.sleep(3000);
         ////
         Thread.sleep(3000);
+        Thread.sleep(1000);
     }
 
     @And("user clicks on No Code received? button")
