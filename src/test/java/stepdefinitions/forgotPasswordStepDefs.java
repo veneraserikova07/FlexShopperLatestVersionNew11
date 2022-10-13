@@ -135,6 +135,8 @@ public class forgotPasswordStepDefs {
         System.out.println("PassCode is " + PassCode);
         codeScreenPage.securityBox.sendKeys(PassCode);
         Thread.sleep(3000);
+        ////
+        Thread.sleep(3000);
     }
 
     @And("user clicks on No Code received? button")
