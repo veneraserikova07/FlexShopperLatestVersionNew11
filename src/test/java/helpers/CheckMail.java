@@ -51,15 +51,6 @@ public class CheckMail
                if((message.getMessageNumber()==n)&&message.getSubject().contains("Your verification code"));
                 //if(message.getSubject().contains("Your verification code"))
                 {
-
-                    /*Get password from email*/
-
-
-                    //Pattern p1 = Pattern.compile("code:=(*.*)");
-
-
-                    //Pattern p1 = Pattern.compile("following code:  =(\\n.+)");
-                   // Pattern p1 = Pattern.compile(".*?code\\: (.*?)\\r.*?", Pattern.DOTALL);
                     Pattern p1 = Pattern.compile("code:         [^a-zA-Z0-9](\\s*.*)");
                     Matcher m1 = p1.matcher(responseMessage);
 
@@ -71,7 +62,6 @@ public class CheckMail
                         //System.out.println("Code :="+ passcode);
                         passcode= pass.replaceAll("[^a-zA-Z0-9]", "");
 
-                        System.out.println("Code :="+ passcode);
 
                     }
                 }

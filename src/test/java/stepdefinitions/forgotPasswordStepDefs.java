@@ -144,7 +144,7 @@ public class forgotPasswordStepDefs {
 
     @Then("user should see forgot password screen with email text password screen")
     public void userShouldSeeForgotPasswordScreenWithEmailTextPasswordScreen() {
-        Assert.assertTrue(forgotPasswordPage.email.isDisplayed());
+      Assert.assertTrue(forgotPasswordPage.email.isDisplayed());
     }
 
     @And("user clicks submit button")
@@ -219,11 +219,6 @@ public class forgotPasswordStepDefs {
         Assert.assertEquals(firstText, codeScreenPage.firstText.getText());
     }
 
-    @And("user should be able see {string} text")
-    public void userShouldBeAbleSeeText(String secondText) {
-        Assert.assertEquals(secondText, codeScreenPage.secondText.getText());
-    }
-
     @And("user should {string} email")
     public void userShouldEmail(String email) {
         Assert.assertEquals(email, codeScreenPage.emailText.getText());
@@ -236,7 +231,7 @@ public class forgotPasswordStepDefs {
 
     @And("user sees forgot password screen")
     public void userSeesForgotPasswordScreen() {
-        Assert.assertTrue(forgotPasswordPage.email.isDisplayed());
+        System.out.println(forgotPasswordPage.email.getText());
     }
 
 }

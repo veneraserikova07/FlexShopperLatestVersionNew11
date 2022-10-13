@@ -10,7 +10,6 @@ Feature: As user I should be able to change the password
     And user clicks forgot password link
 
   # assert forgot password screen
-
   Scenario: User with full information lands on forgot password screen
     Then user should see firstText "How would you like to reset your password? You can verify by email or request a text to be sent to the mobile number linked to your account."
     And user should see secondText "Please choose one of the options below:"
@@ -18,8 +17,19 @@ Feature: As user I should be able to change the password
     And user should be able to see text "Send SMS text with code to:" of radiobutton for text message
     And user should be able to click on continue button
 
-  #verify Return to Password Sign In button functionality
+  Scenario Outline: User without full information in the profile can see the email address provided
+    When the user is on the "Forgot Password" screen
+    Then the user should see the text: "<firstText>"
+    And the user should see the text: "<secondText>"
+    And the user should see the text: "Send email to:"
+    And the user should see the text: "Send SMS text with code to:"
+    And the user should see the "Continue" button
+    Examples:
+      | firstText                                                                                                                                    | secondText                              |
+      | How would you like to reset your password? You can verify by email or request a text to be sent to the mobile number linked to your account. | Please choose one of the options below: |
 
+
+  #verify Return to Password Sign In button functionality
   Scenario: User with full information by clicking Return to password Sign In button should be able to return to Password screen
     And user clicks Return to Password Sign In link
     Then user should see psdScreen
@@ -29,7 +39,6 @@ Feature: As user I should be able to change the password
     And user clicks sent Email to radio button
     And user clicks Continue button
     Then user should see "We sent you a code" text
-    And user should be able see "Enter verification code we sent to" text
     And user should "nann40547@gmail.com" email
     And user clicks No Code received? button
     And  user sees forgot password screen
@@ -82,6 +91,18 @@ Feature: As user I should be able to change the password
     And user enters old "test" password
     And user click sign in button
     Then user should see error message
+
+  Scenario Outline: User with phone information in the profile should see the "Code" screen
+    Given the user is on the "Forgot Password" screen
+    And the sent "Send SMS" radio button is selected
+    When the user clicks on the "Continue" button
+    Then the user lands on the "We sent you a code" screen
+    And the user should see the text: "<firstText>"
+    And the user should see the text: "<secondText>"
+    And the user should see the email: "<phone>"
+    Examples:
+      | firstText           | secondText                         |   phone      |
+      | We sent you a code  | Enter verification code we sent to | xxx-xxx-3966 |
 
 
   #verify sms forgot password (may be available through google voice api)

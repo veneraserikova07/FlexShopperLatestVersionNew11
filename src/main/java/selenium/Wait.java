@@ -1,11 +1,12 @@
-package features.selenium;
+package selenium;
 
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
+import managers.FileReaderManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import managers.FileReaderManager;
+
+import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 
 public class Wait {
