@@ -7,9 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -35,59 +33,36 @@ public class forgotPasswordStepDefs {
         homePage = testContext.getPageObjectManager().getHomePage();
     }
 
-    @Given("user lands ann app")
-    public void user_lands_ann_app() {
+    @Given("user forgot the password")
+    public void userForgotThePassword() {
         loginPage.getEmailScreen();
-    }
-
-    @Given("user on pop up screen")
-    public void user_on_pop_up_screen() {
         testContext.getWebDriverManager().getDriver().switchTo().frame(0);
         testContext.getWebDriverManager().getDriver().switchTo().frame(0);
+        loginPage.login();
+        passwordPage.passwordField.isDisplayed();
     }
-
-    @Given("user enter existing email {string} address")
-    public void user_enter_existing_email_address(String email) {
-        loginPage.enter_email(email);
-    }
-
-    @Given("user clicks continue button")
-    public void user_clicks_continue_button() {
-        loginPage.continueBtn.click();
-    }
-
-    @Given("user lands on password screen")
-    public void user_lands_on_password_screen() {
-        System.out.println(passwordPage.passwordField.isDisplayed());
-    }
-
-    @Given("user clicks forgot password link")
-    public void user_clicks_forgot_password_link() {
+    @When("the user clicks on the Forgot Password link")
+    public void theUserClicksOnTheForgotPasswordLink() {
         passwordPage.ForgotPassword.click();
     }
-
     @Then("user should see firstText {string}")
-    public void user_should_see_first_text(String firstText) {
+    public void userShouldSeeFirstText(String firstText) {
         Assert.assertEquals(firstText, forgotPasswordPage.resetPasswordText.getText());
     }
-
     @Then("user should see secondText {string}")
     public void user_should_see_second_text(String secondText) {
         Assert.assertEquals(secondText, forgotPasswordPage.chooseOptionsText.getText());
     }
-
-    @And("user should be able to see text {string} of radiobutton for email")
-    public void userShouldBeAbleToSeeTextOfRadiobuttonForEmail(String emailText) {
-        Assert.assertEquals(emailText, forgotPasswordPage.email.getText());
+    @And("user should be able to see email {string}")
+    public void userShouldBeAbleToSeeEmail(String email) {
+        Assert.assertEquals(email, forgotPasswordPage.emailName.getText());
     }
-
-    @And("user should be able to see text {string} of radiobutton for text message")
-    public void userShouldBeAbleToSeeTextOfRadiobuttonForTextMessage(String SmsText) {
-        WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(), 20);
-        wait.until(ExpectedConditions.visibilityOf(forgotPasswordPage.txtMsg));
-        Assert.assertEquals(SmsText, forgotPasswordPage.txtMsg.getText());
+    @And("user should be able to see text {string}")
+    public void userShouldBeAbleToSeeText(String phoneNumber) throws InterruptedException {
+        WebDriverWait wait =new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(forgotPasswordPage.phoneNumber));
+        Assert.assertEquals(phoneNumber, forgotPasswordPage.phoneNumber.getText());
     }
-
     @Then("user should be able to click on continue button")
     public void user_should_be_able_to_click_on_continue_button() {
         forgotPasswordPage.continueBtn.click();
@@ -99,8 +74,8 @@ public class forgotPasswordStepDefs {
         forgotPasswordPage.returnToPwd.click();
     }
 
-    @Then("user should see psdScreen")
-    public void userShouldSeePsdScreen() {
+    @Then("user should see email screen")
+    public void userShouldSeeEmailScreen() {
         Assert.assertTrue(loginPage.welcomeText.isDisplayed());
     }
 
@@ -125,36 +100,46 @@ public class forgotPasswordStepDefs {
         forgotPasswordPage.continueBtn.click();
     }
 
-    @Then("code is sent using check email to insert code text box")
-    public void codeIsSentUsingCheckEmailToInsertCodeTextBox() throws InterruptedException {
+    @And("the user retrieves the verification code from the email and send to security code field")
+    public void theUserRetrievesTheVerificationCodeFromTheEmailAndSendToSecurityCodeField() throws InterruptedException {
         CheckMail checkGmail = new CheckMail();
-        Thread.sleep(5000);
+        Thread.sleep(8000);
         String PassCode = CheckMail.check("imap.gmail.com", "imap", "nann40547@gmail.com", "rhtytnjlxhtxbehk");
         WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
-        Thread.sleep(10000);
         System.out.println("PassCode is " + PassCode);
-        codeScreenPage.securityBox.sendKeys(PassCode);
-        Thread.sleep(3000);
-        ////
-        Thread.sleep(3000);
-        Thread.sleep(1000);
+        codeScreenPage.securityCodeBox.sendKeys(PassCode);
+    }
+    @And("the user clicks on the submit button")
+    public void theUserClicksOnTheSubmitButton() {
+        codeScreenPage.SubmitBtn.click();
     }
 
-    @And("user clicks on No Code received? button")
-    public void userClicksOnNoCodeReceivedButton() {
-        codeScreenPage.NoCodeReceivedBtn.click();
+    @Then("the user lands on the {string} screen")
+    public void theUserLandsOnTheScreen(String changePsd) throws InterruptedException {
+        Assert.assertEquals(changePsd,changePasswordScreen.changePassword.getText() );
     }
-
-    @Then("user should see forgot password screen with email text password screen")
-    public void userShouldSeeForgotPasswordScreenWithEmailTextPasswordScreen() {
-      Assert.assertTrue(forgotPasswordPage.email.isDisplayed());
-    }
-
     @And("user clicks submit button")
     public void userClicksSubmitButton() {
         codeScreenPage.SubmitBtn.click();
     }
-
+    @Given("User on Change Password Screen")
+    public void userOnChangePasswordScreen() throws InterruptedException {
+        passwordPage.ForgotPassword.click();
+        try {
+            WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(), 30);
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@class='sc-dVhcbM cahqFL'])[2]")));
+        } catch (TimeoutException toe) {
+            System.out.println("WebElement wasn't found");
+        }
+        forgotPasswordPage.continueBtn.click();
+        CheckMail checkGmail = new CheckMail();
+        Thread.sleep(8000);
+        String PassCode = CheckMail.check("imap.gmail.com", "imap", "nann40547@gmail.com", "rhtytnjlxhtxbehk");
+        WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
+        System.out.println("PassCode is " + PassCode);
+        codeScreenPage.securityCodeBox.sendKeys(PassCode);
+        codeScreenPage.SubmitBtn.click();
+    }
     @And("user enter reset {string} password")
     public void userEnterResetPassword(String newPassword) {
         changePasswordScreen.psdInputBox.sendKeys(newPassword);
@@ -169,72 +154,117 @@ public class forgotPasswordStepDefs {
     public void userClicksToSignOut() throws InterruptedException {
         Actions actions = new Actions(testContext.getWebDriverManager().getDriver());
         actions.moveToElement(testContext.getPageObjectManager().getHomePage().accHeader).perform();
-        Thread.sleep(3000);
         testContext.getWebDriverManager().getDriver().findElement(By.xpath("//a[@class='logOut']")).click();
-        Thread.sleep(3000);
         testContext.getWebDriverManager().getDriver().manage().deleteAllCookies();
         testContext.getWebDriverManager().getDriver().navigate().refresh();
     }
     @And("user clicks sign in module")
-    public void userClicksSignInModule() {
+    public void userClicksSignInModule() throws InterruptedException {
+        WebElement element=testContext.getWebDriverManager().getDriver().findElement(By.xpath("( //*[normalize-space(.)='Apply or Sign In'])[2]"));
+        WebDriverWait wait=new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        element.click();
     }
-    @And("user lands on app")
-    public void userLandsOnApp() {
-    }
+    @And("user clicks on Not You? Sign In or Apply Now link")
+    public void userClicksOnNotYouSignInOrApplyNowLink() {
+        testContext.getWebDriverManager().getDriver().switchTo().frame(0);
+        testContext.getWebDriverManager().getDriver().switchTo().frame(0);
+        testContext.getWebDriverManager().getDriver().findElement(By.id("cookieSignIn-notYou-link")).click();
 
-    @And("user on pop up Screen")
-    public void userOnPopUpScreen() {
     }
 
     @And("user enter existing email {string}")
-    public void userEnterExistingEmail(String arg0) {
+    public void userEnterExistingEmail(String email) {
+        loginPage.enter_email(email);
     }
 
     @And("user clicks continue btn")
     public void userClicksContinueBtn() {
+        loginPage.continueBtn.click();
     }
 
     @And("user lands on password scrn")
     public void userLandsOnPasswordScrn() {
+        passwordPage.passwordField.isDisplayed();
     }
 
     @And("user enter new {string} password")
-    public void userEnterNewPassword(String arg0) {
+    public void userEnterNewPassword(String password) {
+        passwordPage.passwordField.sendKeys(password);
     }
 
     @And("user click sign in button")
     public void userClickSignInButton() {
+        passwordPage.signInBtn.click();
     }
 
     @Then("user lands in the Home page as logged in user {string}")
-    public void userLandsInTheHomePageAsLoggedInUser(String arg0) {
-    }
-    @And("user enters old {string} password")
-    public void userEntersOldPassword(String arg0) {
+    public void userLandsInTheHomePageAsLoggedInUser(String accHeader) throws InterruptedException {
+        Assert.assertEquals(accHeader, homePage.accHeader.getText());
     }
 
-    @Then("user should see error message")
-    public void userShouldSeeErrorMessage() {
-    }
-
-    @Then("user should see {string} text")
-    public void userShouldSeeText(String firstText) {
-        Assert.assertEquals(firstText, codeScreenPage.firstText.getText());
-    }
-
-    @And("user should {string} email")
-    public void userShouldEmail(String email) {
-        Assert.assertEquals(email, codeScreenPage.emailText.getText());
-    }
-
-    @And("user clicks No Code received? button")
-    public void userClicksNoCodeReceivedButton() {
+    @And("user clicks on No Code received? button")
+    public void userClicksOnNoCodeReceivedButton() {
         codeScreenPage.NoCodeReceivedBtn.click();
     }
 
-    @And("user sees forgot password screen")
-    public void userSeesForgotPasswordScreen() {
-        System.out.println(forgotPasswordPage.email.getText());
+
+    @Then("user should see forgot password screen with {string}")
+    public void userShouldSeeForgotPasswordScreenWith(String email) {
+        WebDriverWait wait =new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(forgotPasswordPage.emailName));
+        Assert.assertEquals(email, forgotPasswordPage.emailName.getText());
+
     }
 
+    @And("user should see forgot psd scr with {string}")
+    public void userShouldSeeForgotPsdScrWith(String phoneNumber) {
+        WebDriverWait wait =new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(forgotPasswordPage.phoneNumber));
+        Assert.assertEquals(phoneNumber, forgotPasswordPage.phoneNumber.getText());
+    }
+
+    @And("user see Security Code field")
+    public void userSeeSecurityCodeField() {
+        Assert.assertTrue(codeScreenPage.securityBox.isDisplayed());
+    }
+
+    @Then("the user should land on the {string} screen")
+    public void theUserShouldLandOnTheScreen(String text) {
+        Assert.assertEquals(text, codeScreenPage.firstText.getText());
+    }
+    @And("the user should see the phoneNumber text: {string}")
+    public void theUserShouldSeeThePhoneNumberText(String phoneNumber) {
+        WebDriverWait wait =new WebDriverWait(testContext.getWebDriverManager().getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(forgotPasswordPage.phoneNumber));
+        Assert.assertEquals(phoneNumber, forgotPasswordPage.phoneNumber.getText());
+    }
+    @And("And user clicks sent SMS  to radio button")
+    public void andUserClicksSentSMSToRadioButton() {
+        forgotPasswordPage.clickToSendSms();
+    }
+
+    @And("user enter old {string} psd")
+    public void userEnterOldPsd(String oldPassword) {
+        passwordPage.passwordField.sendKeys(oldPassword);
+    }
+
+    @Then("user can't login to dashboard page amd see error {string} message")
+    public void userCanTLoginToDashboardPageAmdSeeErrorMessage(String validationMessage) {
+        try {
+            WebDriverWait wait = new WebDriverWait(testContext.getWebDriverManager().getDriver(), 2);
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = testContext.getWebDriverManager().getDriver().switchTo().alert();
+            System.out.println(alert.getText());
+            alert.accept();
+            Assert.assertEquals(validationMessage, alert.getText());
+        } catch (Exception e) {
+            System.out.println("No such Alert exception");
+        }
+    }
+
+    @And("the user should see the email text: {string}")
+    public void theUserShouldSeeTheEmailText(String email) {
+        Assert.assertEquals(email, forgotPasswordPage.emailName.getText());
+    }
 }

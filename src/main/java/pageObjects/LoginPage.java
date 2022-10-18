@@ -2,6 +2,8 @@ package pageObjects;
 
 
 
+import cucumber.TestContext;
+import dataProviders.ConfigFileReader;
 import managers.FileReaderManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,6 +37,14 @@ public class LoginPage {
         driver.get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
         // add delete cookies
 
+    }
+    public void login(){
+        emailField.sendKeys(FileReaderManager.getInstance().getConfigReader().getEmail1());
+        continueBtn.click();
+    }
+    public void loginWithNotFullInfo(){
+        emailField.sendKeys(FileReaderManager.getInstance().getConfigReader().getEmail2());
+        continueBtn.click();
     }
 
 

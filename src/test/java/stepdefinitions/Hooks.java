@@ -2,6 +2,13 @@ package stepdefinitions;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.android.AndroidDriver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -10,19 +17,28 @@ import org.openqa.selenium.TakesScreenshot;
 import com.cucumber.listener.Reporter;
 import com.google.common.io.Files;
 import cucumber.TestContext;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 
 public class Hooks {
 
     TestContext testContext;
+    AppiumDriver<MobileElement> driver;
 
     public Hooks(TestContext context) {
         testContext = context;
     }
 
     @Before
-    public void beforeScenario(/*Scenario scenario*/) {
-        //Reporter.assignAuthor("Allure");
+    public void beforeScenario(/*Scenario scenario*/) throws MalformedURLException {DesiredCapabilities capabilities=new DesiredCapabilities();
+      /*  capabilities.setCapability("Version", 12);
+        capabilities.setCapability("deviceName","Pixel 4 New");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("chromeOptions", ImmutableMap.of("w3c", false));
+        capabilities.setCapability("chromeExec", "./src/test/java/mobile_drivers/chromedriver 2");
+        URL url = new URL("http://localhost:4723/wd/hub");
+        driver = new AndroidDriver<>(url, capabilities);*/
     }
 
     @After(order = 1)
